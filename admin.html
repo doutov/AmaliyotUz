@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Login</title>
+    <link rel="stylesheet" href="admin-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Login Oynasi -->
+    <div id="login-screen" class="login-overlay">
+        <div class="login-card">
+            <h2>🔐 Admin Tizimiga kirish</h2>
+            <p>Davom etish uchun ma'lumotlarni kiriting</p>
+            <form id="login-form">
+                <div class="form-group">
+                    <label>Login (Username)</label>
+                    <input type="text" id="admin-user" placeholder="doutov" required>
+                </div>
+                <div class="form-group">
+                    <label>Parol (Password)</label>
+                    <input type="password" id="admin-pass" placeholder="doutov2009" required>
+                </div>
+                <button type="submit" class="btn-primary" style="width:100%;">Kirish</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Panel -->
+    <div id="admin-panel" class="admin-container" style="display: none;">
+        <aside class="sidebar">
+            <div class="sidebar-logo"><h2>🚀 Admin<span>Hub</span></h2></div>
+            <ul class="sidebar-menu">
+                <li class="active" onclick="switchTab('dashboard')"><i class="fa-solid fa-chart-pie"><span>Statistika</span></i></li>
+                <li onclick="switchTab('listings')"><i class="fa-solid fa-briefcase"><span>E'lonlar</span></i></li>
+                <li onclick="switchTab('add-listing')"><i class="fa-solid fa-plus-circle"><span>Qo'shish</span></i></li>
+                <li onclick="switchTab('applications')"><i class="fa-solid fa-users"><span>Arizalar</span></i></li>
+            </ul>
+            <div class="sidebar-footer">
+                <a href="#" onclick="adminLogout()" style="color: #ff7675;"><i class="fa-solid fa-right-from-bracket"></i> Chiqish</a>
+                <a href="index.html"><i class="fa-solid fa-globe"></i> Saytga o'tish</a>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="admin-header">
+                <div class="header-title"><h1 id="page-title">Statistika</h1></div>
+                <div class="admin-profile"><span>Admin (doutov)</span></div>
+            </header>
+
+            <section id="tab-dashboard" class="tab-content active">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon bg-purple"><i class="fa-solid fa-briefcase"></i></div>
+                        <div class="stat-info"><h3>Faol E'lonlar</h3><p id="stat-total-jobs">0</p></div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon bg-blue"><i class="fa-solid fa-users"></i></div>
+                        <div class="stat-info"><h3>Arizalar</h3><p id="stat-total-apps">0</p></div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="tab-listings" class="tab-content">
+                <div class="section-card">
+                    <h2>E'lonlar Ro'yxati</h2>
+                    <div class="table-responsive">
+                        <table>
+                            <thead><tr><th>Lavozim</th><th>Kompaniya</th><th>Hudud</th><th>Amal</th></tr></thead>
+                            <tbody id="admin-listings-table"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <section id="tab-add-listing" class="tab-content">
+                <div class="section-card form-card">
+                    <h2>Yangi E'lon Qo'shish</h2>
+                    <form id="add-job-form">
+                        <div class="form-group"><label>Lavozim nomi</label><input type="text" id="new-title" required></div>
+                        <div class="form-row">
+                            <div class="form-group"><label>Kompaniya</label><input type="text" id="new-company" required></div>
+                            <div class="form-group"><label>Hudud</label><input type="text" id="new-region" required></div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group"><label>Amaliyot turi</label><select id="new-type" style="width:100%; padding:12px; border: 2px solid #dfe6e9; border-radius:10px;"><option value="Maoshli">Maoshli</option><option value="Maoshsiz">Maoshsiz</option></select></div>
+                            <div class="form-group"><label>Format</label><select id="new-format" style="width:100%; padding:12px; border: 2px solid #dfe6e9; border-radius:10px;"><option value="Online">Online</option><option value="Ofis">Ofis</option></select></div>
+                        </div>
+                        <div class="form-group"><label>Ko'nikmalar (vergul bilan)</label><input type="text" id="new-skills" required></div>
+                        <div class="form-group"><label>Mos kelish foizi (%)</label><input type="number" id="new-match" value="90" required></div>
+                        <button type="submit" class="btn-primary">Joylashtirish</button>
+                    </form>
+                </div>
+            </section>
+
+            <section id="tab-applications" class="tab-content">
+                <div class="section-card">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 20px;">
+                        <h2>Kelib tushgan arizalar</h2>
+                        <button class="btn-primary" style="background:#27ae60;" onclick="exportToCSV()"><i class="fa-solid fa-file-excel"></i> Excel yuklab olish</button>
+                    </div>
+                    <div class="table-responsive">
+                        <table>
+                            <thead><tr><th>F.I.O.</th><th>Tel</th><th>Lavozim</th><th>Sana</th><th>Holati</th><th>Amal</th></tr></thead>
+                            <tbody id="admin-apps-table"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div id="toast-msg" class="custom-toast"><i class="fa-solid fa-circle-check"></i> <span id="toast-text">Bajarildi!</span></div>
+
+    <script src="admin-script.js"></script>
+</body>
+</html>

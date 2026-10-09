@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yoshlar Amaliyot Markazi - Prototip</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Header / Navigatsiya -->
+    <header class="header">
+        <div class="logo">🚀 Amaliyot<span>Hub</span></div>
+        <nav>
+            <button id="theme-toggle" class="btn-icon"><i class="fa-solid fa-moon"></i></button>
+            <a href="#search" onclick="resetFilter()">Barcha e'lonlar</a>
+            <a href="#saved" id="saved-nav-link">Tanlanganlar (<span id="saved-count">0</span>)</a>
+            <a href="admin.html" class="admin-link"><i class="fa-solid fa-lock"></i> Admin Panel</a>
+        </nav>
+    </header>
+
+    <!-- Asosiy qism -->
+    <main class="container">
+        <section id="search" class="search-section">
+            <h1>Yoshlar uchun eng yaxshi amaliyot joylarini toping</h1>
+            <div class="filter-box">
+                <div class="input-group">
+                    <i class="fa-solid fa-briefcase"></i>
+                    <input type="text" id="job-input" placeholder="Ko'nikma (Figma, HTML)...">
+                </div>
+                <div class="input-group">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <input type="text" id="region-input" placeholder="Hudud...">
+                </div>
+                <div class="input-group select-group">
+                    <select id="type-input">
+                        <option value="">Turi (Barchasi)</option>
+                        <option value="Maoshli">Maoshli</option>
+                        <option value="Maoshsiz">Maoshsiz</option>
+                    </select>
+                </div>
+                <div class="input-group select-group">
+                    <select id="format-input">
+                        <option value="">Format (Barchasi)</option>
+                        <option value="Online">Online (Masofaviy)</option>
+                        <option value="Ofis">Ofisda</option>
+                    </select>
+                </div>
+                <button id="search-btn" class="btn-primary">Qidirish</button>
+            </div>
+        </section>
+
+        <!-- E'lonlar ro'yxati -->
+        <section class="listings-section">
+            <h2>Mavjud Amaliyot O'rinlari</h2>
+            <div id="listings-grid" class="grid"></div>
+        </section>
+    </main>
+
+    <!-- Ariza topshirish uchun Modal Oyna -->
+    <div id="apply-modal" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3>Amaliyot uchun ariza topshirish</h3>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <form id="application-form">
+                <div class="form-group">
+                    <label>Tanlangan lavozim</label>
+                    <input type="text" id="modal-job-display" readonly style="background: #f1f2f6; cursor: not-allowed;">
+                </div>
+                <div class="form-group">
+                    <label>F.I.O. (Ism Familiyangiz)</label>
+                    <input type="text" id="applicant-name" placeholder="Masalan: Alisher Valiyev" required>
+                </div>
+                <div class="form-group">
+                    <label>Telefon raqamingiz</label>
+                    <input type="text" id="applicant-phone" placeholder="+998 90 123 45 67" required>
+                </div>
+                <button type="submit" class="btn-primary" style="width:100%; margin-top: 10px;">Arizani yuborish</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Professional Toast Xabarnoma -->
+    <div id="toast-msg" class="custom-toast">
+        <i class="fa-solid fa-circle-check"></i> <span id="toast-text">Muvaffaqiyatli bajarildi!</span>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Yoshlar Amaliyot Prototipi. Barcha huquqlar himoyalangan.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
